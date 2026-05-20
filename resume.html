@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gokula Kumaran — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0f1923;
+    --muted: #4a5568;
+    --light: #718096;
+    --accent: #0066cc;
+    --rule: #e2e8f0;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 9.5pt;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.2rem 2.8rem;
+  }
+
+  /* ── HEADER ── */
+  .header { margin-bottom: 1.1rem; }
+
+  .name {
+    font-size: 22pt;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 0.2rem;
+  }
+
+  .title-line {
+    font-family: var(--mono);
+    font-size: 8pt;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+  }
+
+  .contact-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.2rem;
+    font-size: 8.5pt;
+    color: var(--muted);
+  }
+
+  .contact-bar a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  hr {
+    border: none;
+    border-top: 1.5px solid var(--ink);
+    margin: 0.7rem 0 0.9rem;
+  }
+
+  .rule-light {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0.5rem 0;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 1rem; }
+
+  .section-head {
+    font-family: var(--mono);
+    font-size: 7pt;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.18rem;
+    margin-bottom: 0.55rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item { margin-bottom: 0.75rem; }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .exp-role {
+    font-weight: 600;
+    font-size: 9.5pt;
+    color: var(--ink);
+  }
+
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: var(--light);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .exp-org {
+    font-size: 8.5pt;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .bullets {
+    list-style: none;
+    padding-left: 0.9rem;
+  }
+
+  .bullets li {
+    font-size: 8.5pt;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 0.18rem;
+    position: relative;
+  }
+
+  .bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: -0.9rem;
+    color: var(--accent);
+    font-size: 7pt;
+    top: 0.15rem;
+  }
+
+  /* ── PROJECTS ── */
+  .proj-item { margin-bottom: 0.65rem; }
+
+  .proj-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .proj-name {
+    font-weight: 600;
+    font-size: 9pt;
+    color: var(--ink);
+  }
+
+  .proj-tags {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--light);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .proj-desc {
+    font-size: 8.5pt;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 0.15rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.25rem 0.8rem;
+  }
+
+  .skill-cat {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: var(--ink);
+    padding-top: 0.05rem;
+  }
+
+  .skill-vals {
+    font-size: 8.5pt;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-left {}
+
+  .edu-degree {
+    font-weight: 600;
+    font-size: 9pt;
+  }
+
+  .edu-school {
+    font-size: 8.5pt;
+    color: var(--muted);
+  }
+
+  .edu-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .edu-date {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: var(--light);
+  }
+
+  .edu-gpa {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    color: var(--accent);
+  }
+
+  /* ── PUBLICATIONS ── */
+  .pub-item {
+    font-size: 8.5pt;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .pub-item::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 7pt;
+    top: 0.15rem;
+  }
+
+  .pub-venue {
+    font-family: var(--mono);
+    font-size: 7pt;
+    color: var(--accent);
+  }
+
+  /* ── DOWNLOAD BUTTON (screen only) ── */
+  .dl-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .dl-btn {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .back-btn {
+    font-family: var(--mono);
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 0.5rem;
+  }
+
+  @media print {
+    .dl-bar { display: none; }
+    body { font-size: 9pt; }
+    .page { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Action bar (hidden on print) -->
+  <div class="dl-bar">
+    <a href="index.html" class="back-btn">← Portfolio</a>
+    <button class="dl-btn" onclick="window.print()">⬇ Print / Save PDF</button>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name">Gokula Kumaran Kiruthiga Gopal</div>
+    <div class="title-line">Applied AI Engineer · Multimodal AI · Computer Vision · LLMOps · Edge AI</div>
+    <div class="contact-bar">
+      <span>(734) 446-4002</span>
+      <a href="mailto:gokul.gk.michi@gmail.com">gokul.gk.michi@gmail.com</a>
+      <a href="https://github.com/gk-gokul" target="_blank">github.com/gk-gokul</a>
+      <a href="https://www.linkedin.com/in/gkgokul14/" target="_blank">linkedin.com/in/gkgokul14</a>
+      <span>Detroit, Michigan</span>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-head">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Research Assistant — Applied AI / Product Systems</div>
+        <div class="exp-period">May 2025 – Present</div>
+      </div>
+      <div class="exp-org">IntelliAware · Wayne State University, Detroit MI</div>
+      <ul class="bullets">
+        <li>Architected real-time industrial AI monitoring platform for manufacturing process calibration, step tracking, anomaly detection, and workflow intelligence using multimodal CV and LLM systems.</li>
+        <li>Designed hybrid inference architecture combining MobileNetV3-based edge vision models with Gemini 2.0 Flash for semantic process-state detection — three-tier pipeline: pHash EMA (~1ms) → LightGlue TRT FP16 (~20ms) → Gemini (~2s).</li>
+        <li>Engineered GPU-aware edge AI pipelines for NVIDIA Jetson Orin deployment — streaming video inference, motion analysis, cycle-boundary detection, Dockerized with TensorRT auto-export.</li>
+        <li>Built production FastAPI backend with SSE streaming, asynchronous calibration orchestration, telemetry integrations, cancellation workflows, and persistent monitoring state.</li>
+      </ul>
+    </div>
+
+    <div class="rule-light"></div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Applied AI Engineer</div>
+        <div class="exp-period">Jun 2025 – May 2026</div>
+      </div>
+      <div class="exp-org">Community Health Workers Academy · Wayne State University, Detroit MI</div>
+      <ul class="bullets">
+        <li>Architected and deployed production-grade AI healthcare assistant using hybrid RAG pipelines (SentenceTransformers + ChromaDB + TF-IDF) with grounding, hallucination mitigation, and trusted-source validation.</li>
+        <li>Engineered end-to-end LLMOps infrastructure: FastAPI backend, auth/session systems, abuse protection (token bucket rate limiting), streaming inference, and multi-turn conversational orchestration.</li>
+        <li>Developed real-time speech AI pipelines using Faster-Whisper (large-v3), ffmpeg preprocessing, VAD filtering, and streaming transcription for conversational healthcare AI.</li>
+      </ul>
+    </div>
+
+    <div class="rule-light"></div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Technical Lead — Electrical &amp; Software</div>
+        <div class="exp-period">May 2025 – Present</div>
+      </div>
+      <div class="exp-org">Wayne State University Robotics · IGVC 2026</div>
+      <ul class="bullets">
+        <li>Designed complete electrical system for autonomous ground vehicle, reducing power system complexity by 50% and assembly time by 80%.</li>
+        <li>Developed hybrid navigation framework combining Nav2 with RL-based residual control; implemented swerve drive kinematics with &lt;10ms control loop latency; integrated LiDAR/IMU/camera sensor fusion at &lt;50ms in Gazebo Ignition.</li>
+      </ul>
+    </div>
+
+    <div class="rule-light"></div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Open Source Contributor</div>
+        <div class="exp-period">2025</div>
+      </div>
+      <div class="exp-org">Jaseci Labs · AI Claims Processing Agent</div>
+      <ul class="bullets">
+        <li>Contributed to generative AI agent processing 150+ real insurance claims with 89% autonomous resolution; LangChain orchestration with Claude, custom tool implementations, and 80% processing time reduction (3 days → 4 hours).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-head">Selected Projects</div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <div class="proj-name">AI Incident Response Copilot</div>
+        <div class="proj-tags">LangChain · GPT-4 · Claude · Kafka · LangSmith</div>
+      </div>
+      <div class="proj-desc">Production-grade agentic pipeline for IT incident diagnosis — 72% top-1 / 91% top-3 root-cause accuracy across 150 scenarios; 66% MTTD reduction (35min → 12min). Full LLMOps lifecycle: CI/CD eval pipelines, &lt;6s latency, &lt;5% hallucination rate.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <div class="proj-name">Synthetic Industrial Data Generation Pipeline</div>
+        <div class="proj-tags">SDXL · ControlNet · LoRA · Diffusers</div>
+      </div>
+      <div class="proj-desc">SDXL + ControlNet pipeline generating manufacturing defect scenarios for CV model augmentation. LoRA fine-tuning on domain-specific industrial datasets for semantic controllability across machinery states.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <div class="proj-name">IntelliGrow — RL Smart Plant Care System</div>
+        <div class="proj-tags">PPO · Stable-Baselines3 · ESP32 · Flask · IoT</div>
+      </div>
+      <div class="proj-desc">Deployed on a real farm. PPO agent trained on live sensor logs (temp, humidity, light, soil moisture); hardware-calibrated water delivery with tube-delay equation; ESP32 + relay motor actuation.</div>
+    </div>
+
+    <div class="proj-item">
+      <div class="proj-header">
+        <div class="proj-name">Research Paper Organizer</div>
+        <div class="proj-tags">RAG · HDBSCAN · ChromaDB · Ollama · Streamlit</div>
+      </div>
+      <div class="proj-desc">Used by Wayne State PhD students. HDBSCAN topic clustering, mxbai-embed-large embeddings, ChromaDB RAG Q&amp;A, duplicate detection. ROUGE-L 0.37 · BERTScore F1 0.89 · LLM score 8.08/10.</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-head">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-cat">AI / ML</div>
+      <div class="skill-vals">PyTorch, TensorFlow, CUDA, HuggingFace Transformers, Diffusers, OpenCV, ControlNet, LoRA, SDXL, Ollama, Gemini API, SentenceTransformers, Whisper, Stable-Baselines3 (PPO)</div>
+
+      <div class="skill-cat">LLMOps / RAG</div>
+      <div class="skill-vals">LangChain, LangSmith, ChromaDB, FAISS, HDBSCAN, TF-IDF, Hybrid RAG, Faster-Whisper, VAD, Streaming Inference, CI/CD Eval Pipelines</div>
+
+      <div class="skill-cat">Backend / Infra</div>
+      <div class="skill-vals">FastAPI, Flask, Docker, SQLite, SSE Streaming, bcrypt/Auth, Rate Limiting, ffmpeg, Kafka, Linux (Ubuntu), WSL</div>
+
+      <div class="skill-cat">Edge / Hardware</div>
+      <div class="skill-vals">NVIDIA Jetson AGX Orin, TensorRT, LightGlue, Raspberry Pi, Arduino, ESP32, CAN / Ethernet, Microcontrollers</div>
+
+      <div class="skill-cat">Robotics</div>
+      <div class="skill-vals">ROS2 Jazzy, Nav2, Gazebo Ignition, robot_localization (EKF), Swerve Drive Kinematics, Sensor Fusion, SLAM</div>
+
+      <div class="skill-cat">Languages</div>
+      <div class="skill-vals">Python, C/C++, MATLAB, Verilog, SQL</div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-head">Education</div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <div class="edu-degree">M.S. Artificial Intelligence (Hardware &amp; Systems)</div>
+        <div class="edu-school">Wayne State University · Detroit, Michigan</div>
+      </div>
+      <div class="edu-right">
+        <div class="edu-date">Graduated Apr 2026</div>
+        <div class="edu-gpa">GPA: 3.71</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-left">
+        <div class="edu-degree">B.Tech — Electronics &amp; Communication Engineering</div>
+        <div class="edu-school">Amrita School of Engineering · India</div>
+      </div>
+      <div class="edu-right">
+        <div class="edu-date">Graduated Jun 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="section">
+    <div class="section-head">Publications</div>
+    <div class="pub-item">
+      <span class="pub-venue">IEEE 2024 · </span>Automated Meta-Learning Frameworks for Dynamic Neural Architecture
+    </div>
+    <div class="pub-item">
+      <span class="pub-venue">IEEE 2024 · </span>PUF-Secured Memory: Integrating Arbiter PUFs with Error Correction
+    </div>
+    <div class="pub-item">
+      <span class="pub-venue">ASIANCON 2024 · </span>Breaking Down Barriers: Text Segmentation using DeBERTa-V3
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

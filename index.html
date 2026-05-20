@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gokula Kumaran — Applied AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #111820;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(0,229,255,0.12);
+    --card: rgba(13,17,23,0.9);
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Bebas Neue', cursive;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── GRID BG ─── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO LAYOUT WITH PHOTO ─── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 4rem;
+  }
+
+  .hero-content { max-width: 780px; flex: 1; }
+
+  .hero-photo-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-photo-border {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 0 40px rgba(0,229,255,0.15);
+  }
+
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--bg);
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .hero-layout { flex-direction: column-reverse; gap: 2rem; }
+    .hero-photo-border { width: 160px; height: 160px; }
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  h1 .accent-line {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    margin: 1.8rem 0 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    padding: 0.3rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    background: rgba(0,229,255,0.03);
+    transition: all 0.2s;
+  }
+
+  .chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.06);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 700;
+    transition: all 0.2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .btn-primary:hover {
+    background: #fff;
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0,229,255,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* ─── SCROLL INDICATOR ─── */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 2;
+  }
+
+  .scroll-indicator span {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 560px;
+    margin-bottom: 3.5rem;
+    font-size: 1rem;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 2.8rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  #experience { max-width: 1200px; margin: 0 auto; }
+
+  .exp-container { max-width: 1200px; margin: 0 auto; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta { padding-top: 0.2rem; }
+
+  .exp-period {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+
+  .exp-role {
+    font-family: var(--sans);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-org {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.2rem;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .exp-bullets li {
+    font-size: 0.93rem;
+    color: var(--muted);
+    font-weight: 300;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+    top: 0.2rem;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--bg2); border-top: 1px solid var(--border); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    gap: 1.5px;
+    max-width: 1300px;
+    margin: 0 auto;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .project-card:hover { background: var(--bg3); }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-number {
+    font-family: var(--display);
+    font-size: 5rem;
+    color: rgba(0,229,255,0.06);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .project-status {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+    display: inline-block;
+  }
+
+  .status-live {
+    background: rgba(16,185,129,0.12);
+    color: var(--accent3);
+    border: 1px solid rgba(16,185,129,0.25);
+  }
+
+  .status-progress {
+    background: rgba(0,229,255,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,255,0.2);
+  }
+
+  .project-title {
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-subtitle {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-highlights li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .project-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    padding: 0.2rem 0.55rem;
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    border-radius: 2px;
+  }
+
+  .project-gh {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+    transition: opacity 0.2s, color 0.2s;
+  }
+
+  .project-gh::before {
+    content: '⌥';
+    font-size: 0.7rem;
+    color: var(--accent);
+  }
+
+  .project-gh:hover {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { max-width: 1200px; margin: 0 auto; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-group::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .skill-item {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #94a3b8;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .skill-item:hover {
+    background: rgba(0,229,255,0.05);
+    border-color: rgba(0,229,255,0.2);
+    color: var(--accent);
+  }
+
+  /* ─── PUBLICATIONS ─── */
+  #publications { background: var(--bg2); border-top: 1px solid var(--border); }
+
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 900px;
+  }
+
+  .pub-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem 2rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    transition: border-color 0.2s;
+  }
+
+  .pub-item:hover { border-left-color: var(--accent); }
+
+  .pub-year {
+    font-family: var(--display);
+    font-size: 2.2rem;
+    color: rgba(0,229,255,0.2);
+    line-height: 1;
+    min-width: 60px;
+  }
+
+  .pub-content { flex: 1; }
+
+  .pub-venue {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--accent2);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .pub-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ─── EDUCATION ─── */
+  #education { max-width: 1200px; margin: 0 auto; }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  .edu-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .edu-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent3), transparent);
+  }
+
+  .edu-degree {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .edu-school {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.6rem;
+  }
+
+  .edu-detail {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .edu-gpa {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    color: var(--accent3);
+    margin-top: 1rem;
+    line-height: 1;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .contact-inner { max-width: 700px; margin: 0 auto; }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .contact-link {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.8rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.04);
+  }
+
+  .contact-email {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-top: 1.5rem;
+    display: block;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── CURSOR BLINK ─── */
+  .blink {
+    animation: blink 1.2s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 0 1.5rem; }
+    h1 { font-size: 3.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GK.KIRUTHIGA_GOPAL<span class="blink">_</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 70%);top:-200px;right:-100px;pointer-events:none;"></div>
+  <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.06) 0%,transparent 70%);bottom:-100px;left:200px;pointer-events:none;"></div>
+  <div class="hero-layout">
+    <div class="hero-content">
+      <div class="hero-tag">Applied AI Engineer · Detroit, Michigan</div>
+      <h1>
+        GOKULA<br>
+        KUMARAN
+        <span class="accent-line">KIRUTHIGA GOPAL</span>
+      </h1>
+      <p class="hero-sub">
+        Building production-grade AI systems at the intersection of multimodal reasoning, computer vision, and edge deployment — from NVIDIA Jetson pipelines to LLMOps infrastructure.
+      </p>
+      <div class="hero-chips">
+        <span class="chip">Multimodal AI</span>
+        <span class="chip">Computer Vision</span>
+        <span class="chip">LLMOps</span>
+        <span class="chip">Edge AI</span>
+        <span class="chip">RAG Pipelines</span>
+        <span class="chip">FastAPI</span>
+        <span class="chip">PyTorch</span>
+        <span class="chip">NVIDIA Jetson</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="resume.html" target="_blank" class="btn-ghost">Download Resume</a>
+        <a href="mailto:gokul.gk.michi@gmail.com" class="btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-border">
+        <img src="https://raw.githubusercontent.com/gk-gokul/chw_img/main/15.jpg" alt="Gokula Kumaran" class="hero-photo" />
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <div class="section-label">About</div>
+      <h2 class="section-title">WHO I AM</h2>
+      <p>
+        I'm an <strong>Applied AI Engineer</strong> and MS graduate (Artificial Intelligence — Hardware & Systems) from Wayne State University, specializing in building real-world AI systems that go beyond prototypes.
+      </p>
+      <p>
+        My work spans <strong>multimodal AI, real-time computer vision, and LLMOps infrastructure</strong> — I've deployed production systems at Wayne State that handle manufacturing process monitoring and healthcare AI assistance at scale.
+      </p>
+      <p>
+        I care deeply about the full stack: from GPU-aware edge pipelines on <strong>NVIDIA Jetson</strong> to FastAPI backends with proper auth, rate limiting, and streaming inference. Engineering, not just modeling.
+      </p>
+      <p>
+        Currently open to <strong>full-time Applied AI / ML Engineering roles</strong> — particularly in computer vision, multimodal systems, and AI infrastructure.
+      </p>
+      <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <a href="mailto:gokul.gk.michi@gmail.com" class="btn-ghost" style="font-size:0.7rem; padding: 0.65rem 1.2rem;">Email Me</a>
+        <a href="https://github.com/gk-gokul" target="_blank" class="btn-ghost" style="font-size:0.7rem; padding: 0.65rem 1.2rem;">GitHub</a>
+        <a href="https://www.linkedin.com/in/gkgokul14/" target="_blank" class="btn-ghost" style="font-size:0.7rem; padding: 0.65rem 1.2rem;">LinkedIn</a>
+      </div>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-card">
+        <div class="stat-num">3.71</div>
+        <div class="stat-label">GPA — MS AI</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Production AI Systems Deployed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">IEEE / ASIANCON Publications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2Y+</div>
+        <div class="stat-label">Applied AI Engineering</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-container">
+    <div class="section-label fade-in">Experience</div>
+    <h2 class="section-title fade-in">WHERE I'VE WORKED</h2>
+    <p class="section-desc fade-in">Production AI engineering, not just research — deployed systems serving real users at Wayne State University.</p>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">May 2025 — Present</div>
+        <div class="exp-company">Wayne State University<br>Detroit, Michigan</div>
+      </div>
+      <div>
+        <div class="exp-role">Research Assistant — Applied AI / Product Systems</div>
+        <div class="exp-org">IntelliAware · Industrial AI Platform</div>
+        <ul class="exp-bullets">
+          <li>Architected a real-time industrial AI monitoring platform for manufacturing process calibration, step tracking, anomaly detection, and workflow intelligence using multimodal computer vision and LLM systems.</li>
+          <li>Designed a hybrid AI inference architecture combining MobileNetV3-based edge vision models with Gemini multimodal reasoning for semantic process-state detection and transition classification.</li>
+          <li>Engineered GPU-aware edge AI pipelines optimized for NVIDIA Jetson deployment — streaming video inference, motion analysis, cycle-boundary detection, and real-time process monitoring APIs.</li>
+          <li>Built production FastAPI backend infrastructure with asynchronous calibration orchestration, SSE streaming, telemetry integrations, cancellation workflows, and persistent monitoring state management.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">June 2025 — May 2026</div>
+        <div class="exp-company">Wayne State University<br>Detroit, Michigan</div>
+      </div>
+      <div>
+        <div class="exp-role">Applied AI Engineer</div>
+        <div class="exp-org">Community Health Workers Academy</div>
+        <ul class="exp-bullets">
+          <li>Architected and deployed a production-grade AI healthcare assistant using hybrid RAG pipelines (SentenceTransformers + ChromaDB + TF-IDF retrieval) with grounding, hallucination mitigation, and trusted-source validation.</li>
+          <li>Engineered end-to-end LLMOps infrastructure including FastAPI backend, authentication/session systems, abuse protection, streaming inference, observability, and multi-turn conversational orchestration.</li>
+          <li>Developed real-time speech AI pipelines using Faster-Whisper, ffmpeg preprocessing, VAD filtering, and streaming transcription for conversational healthcare AI and location-aware recommendation systems.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">May 2025 — Present</div>
+        <div class="exp-company">Wayne State University<br>Detroit, Michigan</div>
+      </div>
+      <div>
+        <div class="exp-role">Technical Lead — Electrical</div>
+        <div class="exp-org">Wayne State University Robotics</div>
+        <ul class="exp-bullets">
+          <li>Led electrical subsystem development for the Intelligent Ground Vehicle Competition (IGVC), managing system integration, design review, and deployment for a multi-sensor autonomous platform.</li>
+          <li>Architected the complete electrical system for the industrial-spec robot, reducing power system complexity by 50% and assembly time by 80% through strategic component selection and modular design.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-in">
+      <div class="exp-meta">
+        <div class="exp-period">2025</div>
+        <div class="exp-company">Remote</div>
+      </div>
+      <div>
+        <div class="exp-role">Open Source Contributor</div>
+        <div class="exp-org">Jaseci Labs · AI Claims Processing Agent</div>
+        <ul class="exp-bullets">
+          <li>Contributed to a generative AI agent pipeline processing 150+ real insurance claims — achieved 89% autonomous resolution rate through multi-step tool orchestration across document parsing, conflict validation, message drafting, and finalization.</li>
+          <li>Worked on agent reasoning flow integrating Claude for natural language understanding with custom tool implementations and Pydantic-enforced structured outputs; contributed to evaluation framework that reduced processing time by 80% (3 days → 4 hours).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label fade-in">Projects</div>
+  <h2 class="section-title fade-in">WHAT I'VE BUILT</h2>
+  <p class="section-desc fade-in">Production systems, not toy demos — each deployed with real users, real constraints, real infrastructure.</p>
+
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="project-card fade-in">
+      <div class="project-number">01</div>
+      <div class="project-status status-live">● Live / Production</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">CHW Academy AI Healthcare Assistant</div>
+      <div class="project-subtitle">LLMOps · RAG · Healthcare AI · STT</div>
+      <p class="project-desc">
+        A full-stack AI assistant for Community Health Workers at Wayne State — combining hybrid RAG, real-time speech transcription, intent routing, location-aware resources, and multi-turn supervision workflows.
+      </p>
+      <ul class="project-highlights">
+        <li>Hybrid RAG pipeline: SentenceTransformers + ChromaDB semantic search + TF-IDF keyword retrieval for grounded, hallucination-mitigated responses</li>
+        <li>Real-time STT with Faster-Whisper (large-v3), ffmpeg preprocessing, VAD filtering — full audio pipeline from browser to transcript</li>
+        <li>Production auth system: bcrypt password hashing, sliding-window sessions, email verification, lockout protection, per-user rate limiting (token bucket)</li>
+        <li>CHW Supervisor module: FAISS vector index + Llama3.2 for real-time case supervision with conversational memory and MI-principles</li>
+        <li>Intent routing engine combining keyword heuristics + LLM fallback for local resources, courses, guidelines, and PDF recommendations</li>
+        <li>Weekly meal planner with diet validation, variety enforcement, web-grounded recipe generation, and PDF export</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">ChromaDB</span>
+        <span class="tech-tag">SentenceTransformers</span>
+        <span class="tech-tag">FAISS</span>
+        <span class="tech-tag">Faster-Whisper</span>
+        <span class="tech-tag">Llama3.2</span>
+        <span class="tech-tag">TF-IDF</span>
+        <span class="tech-tag">SearXNG</span>
+        <span class="tech-tag">SQLite</span>
+        <span class="tech-tag">ffmpeg</span>
+        <span class="tech-tag">bcrypt</span>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card fade-in">
+      <div class="project-number">02</div>
+      <div class="project-status status-live">● Live / Production</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">IntelliAware — Industrial AI Monitoring Platform</div>
+      <div class="project-subtitle">Computer Vision · Edge AI · Gemini Multimodal · NVIDIA Jetson Orin</div>
+      <p class="project-desc">
+        Factory-agnostic process monitoring system deployed on NVIDIA Jetson Orin — a three-tier CV pipeline combining perceptual hashing, LightGlue TensorRT FP16, and Gemini 2.0 Flash multimodal reasoning for real-time step tracking, anomaly detection, and cycle intelligence. No manual tuning: auto-calibrates from reference frames.
+      </p>
+      <ul class="project-highlights">
+        <li><strong style="color:var(--text)">Three-tier detection pipeline:</strong> pHash + histogram EMA (~1ms, CPU) → LightGlue TensorRT FP16 (~20ms, GPU Tensor Cores) → Gemini 2.0 Flash YES/NO (~2s, async, rare fallback)</li>
+        <li><strong style="color:var(--text)">Gemini multimodal classifier:</strong> submits before/after transition frame pairs with step descriptions; classifies which manufacturing step just completed — factory-agnostic, no code changes to switch plants</li>
+        <li><strong style="color:var(--text)">Jetson Orin deployment:</strong> Dockerized with dustynv/l4t-pytorch base, TensorRT engine auto-export on first run, starts in &lt;5s after initial build; separate docker-compose for dev vs. Jetson</li>
+        <li><strong style="color:var(--text)">MobileNetV3 always-on:</strong> runs every 3rd frame for motion detection, camera misalignment alarms, and stuck-process detection — independent of the step classifier</li>
+        <li><strong style="color:var(--text)">PC calibration server:</strong> FastAPI backend handles video upload, auto cycle-boundary detection (SSIM + cosine similarity), reference frame extraction, and KO (Knowledge Object) structured storage via MIX store</li>
+        <li>SSE-streaming video monitor endpoint with real-time pacing, job cancellation, cycle log tracking, and bootstrap phase to find start state on mid-process attach</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">Gemini 2.0 Flash</span>
+        <span class="tech-tag">LightGlue TensorRT FP16</span>
+        <span class="tech-tag">MobileNetV3</span>
+        <span class="tech-tag">NVIDIA Jetson Orin</span>
+        <span class="tech-tag">TensorRT</span>
+        <span class="tech-tag">FastAPI + SSE</span>
+        <span class="tech-tag">OpenCV</span>
+        <span class="tech-tag">PyTorch</span>
+        <span class="tech-tag">Docker / CUDA</span>
+        <span class="tech-tag">SSIM</span>
+        <span class="tech-tag">pHash</span>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card fade-in">
+      <div class="project-number">03</div>
+      <div class="project-status status-progress">◌ In Progress</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">Synthetic Industrial Data Generation Pipeline</div>
+      <div class="project-subtitle">Generative AI · Diffusion Models · ControlNet · LoRA</div>
+      <p class="project-desc">
+        A synthetic image/video generation pipeline using SDXL, Diffusers, and ControlNet to generate manufacturing defect scenarios and rare process-state edge cases for computer vision model augmentation.
+      </p>
+      <ul class="project-highlights">
+        <li>Fine-tuned diffusion models using LoRA adapters on domain-specific industrial datasets to improve generation consistency across machinery states and anomaly classes</li>
+        <li>Structured prompt-conditioning workflows and controllable generation pipelines for semantically aligned synthetic industrial scene generation</li>
+        <li>Designed to augment real datasets with rare defect scenarios — enabling better CV model training without expensive real-world data collection</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">SDXL</span>
+        <span class="tech-tag">Diffusers</span>
+        <span class="tech-tag">ControlNet</span>
+        <span class="tech-tag">LoRA Fine-Tuning</span>
+        <span class="tech-tag">PyTorch</span>
+        <span class="tech-tag">HuggingFace</span>
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-card fade-in">
+      <div class="project-number">04</div>
+      <div class="project-status status-live">● Active / IGVC 2026</div>
+      <a href="https://github.com/waynerobotics/Warrior_2026" target="_blank" class="project-gh">github.com/waynerobotics/Warrior_2026</a>
+      <div class="project-title">Warrior 2026 — Autonomous Ground Vehicle (IGVC)</div>
+      <div class="project-subtitle">ROS2 Jazzy · Nav2 · Swerve Drive · Sensor Fusion · Electrical Lead</div>
+      <p class="project-desc">
+        Full-stack autonomous ground vehicle for the 2026 Intelligent Ground Vehicle Competition — I contributed across both electrical architecture and software, from power system design to ROS2 navigation pipelines, RL-based motion planning, and real-time sensor fusion on NVIDIA Jetson AGX Orin.
+      </p>
+      <ul class="project-highlights">
+        <li><strong style="color:var(--text)">Electrical architecture:</strong> designed complete power system for the autonomous platform — reduced complexity by 50% and assembly time by 80% via modular subsystem design and optimized component integration</li>
+        <li><strong style="color:var(--text)">Sensor fusion pipeline:</strong> integrated LiDAR, RGB cameras, IMU, and odometry under ROS2, achieving real-time fusion with &lt;50ms latency validated in Gazebo Ignition simulation</li>
+        <li><strong style="color:var(--text)">Hybrid navigation framework:</strong> combined Nav2 with reinforcement learning-based residual control policies for adaptive motion planning in unstructured outdoor environments</li>
+        <li><strong style="color:var(--text)">Jetson AGX Orin integration:</strong> implemented and debugged sensor interfaces with CAN and Ethernet protocols for motor control and real-time sensor data acquisition</li>
+        <li><strong style="color:var(--text)">Swerve drive kinematics:</strong> implemented forward and inverse kinematics pipelines for the 4-module swerve platform — real-time steering angle and wheel velocity control with &lt;10ms control loop latency</li>
+        <li>Full ROS2 package stack: warrior_hardware, warrior_navigation, warrior_localization, warrior_gps, warrior_control, warrior_serial, warrior_description — Dockerized with Gazebo Ignition simulation environment</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">ROS2 Jazzy</span>
+        <span class="tech-tag">Nav2</span>
+        <span class="tech-tag">Gazebo Ignition</span>
+        <span class="tech-tag">NVIDIA Jetson AGX Orin</span>
+        <span class="tech-tag">LiDAR</span>
+        <span class="tech-tag">Sensor Fusion / EKF</span>
+        <span class="tech-tag">Swerve Drive Kinematics</span>
+        <span class="tech-tag">RL Residual Control</span>
+        <span class="tech-tag">CAN / Ethernet</span>
+        <span class="tech-tag">Python / C++</span>
+      </div>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="project-card fade-in">
+      <div class="project-number">05</div>
+      <div class="project-status status-live">● Used by Wayne State PhD Students</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">Research Paper Organizer — AI Literature Management System</div>
+      <div class="project-subtitle">RAG · HDBSCAN Clustering · LLM Summarization · Local-First · Multi-User</div>
+      <p class="project-desc">
+        A fully local, privacy-first AI system for managing large research paper collections — actively used by Wayne State PhD students. Combines PDF extraction, LLM summarization, semantic embeddings, HDBSCAN topic clustering, and RAG-based Q&amp;A into one unified Streamlit application. Documented in IEEE paper format (ECE7500).
+      </p>
+      <ul class="project-highlights">
+        <li><strong style="color:var(--text)">End-to-end RAG pipeline:</strong> PDFs split into 4-sentence chunks, embedded with mxbai-embed-large, stored in ChromaDB; queries retrieve top-k chunks and pass to Ollama LLM (qwen2.5vl) for grounded, hallucination-reduced answers</li>
+        <li><strong style="color:var(--text)">HDBSCAN topic clustering:</strong> document-level embeddings clustered automatically — no predefined k; TF-IDF keyword extraction generates human-readable topic labels; PDFs auto-organized into topic folders</li>
+        <li><strong style="color:var(--text)">Duplicate detection:</strong> cosine similarity between document embeddings flags near-duplicate papers before processing — avg similarity score 0.75 on evaluation set</li>
+        <li><strong style="color:var(--text)">Evaluated rigorously:</strong> ROUGE-L 0.37 · BERTScore F1 0.89 · LLM evaluator 8.08/10 — all metrics computed fully locally without any cloud APIs</li>
+        <li><strong style="color:var(--text)">Multi-user system:</strong> per-user auth, isolated cache + vector DB per user, per-user PDF library; export to CSV comparison, markdown summaries, and auto-generated related work sections</li>
+        <li>Table extraction with importance scoring (numeric density + keyword hits), high-DPI 216 DPI preview rendering via PyMuPDF, and real-time progress callbacks during batch processing</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">Ollama / qwen2.5vl</span>
+        <span class="tech-tag">mxbai-embed-large</span>
+        <span class="tech-tag">ChromaDB</span>
+        <span class="tech-tag">HDBSCAN</span>
+        <span class="tech-tag">PyMuPDF</span>
+        <span class="tech-tag">pdfplumber</span>
+        <span class="tech-tag">Streamlit</span>
+        <span class="tech-tag">SentenceTransformers</span>
+        <span class="tech-tag">TF-IDF</span>
+        <span class="tech-tag">RAG</span>
+        <span class="tech-tag">ROUGE-L / BERTScore</span>
+      </div>
+    </div>
+
+    <!-- Project 6 -->
+    <div class="project-card fade-in">
+      <div class="project-number">06</div>
+      <div class="project-status status-live">● Deployed on a Real Farm</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">IntelliGrow — RL-Powered Smart Plant Care System</div>
+      <div class="project-subtitle">Reinforcement Learning · IoT · ESP32 · Flask · PPO · Real Hardware</div>
+      <p class="project-desc">
+        A fully functional IoT + AI system for autonomous plant care — inspired by a local farmer and deployed on a real farm. An ESP32 reads live sensor data (temperature, humidity, light, soil moisture) and a PPO reinforcement learning model decides when to water, activating a relay-controlled pump with hardware-calibrated precision.
+      </p>
+      <ul class="project-highlights">
+        <li><strong style="color:var(--text)">PPO reinforcement learning agent:</strong> custom Gym-compatible PlantWateringEnv trained on real sensor logs — reward structure penalizes overwatering (soil &gt;85%) and underwatering (soil &lt;45%), trained over 5,000 timesteps using Stable-Baselines3</li>
+        <li><strong style="color:var(--text)">Hardware-calibrated water delivery:</strong> derived flow-rate equation accounting for tube fill delay — Watering Time = (Volume × Flow Factor) + Tube Delay Constant — ensures precise delivery even at small volumes</li>
+        <li><strong style="color:var(--text)">Full IoT pipeline:</strong> ESP32 WROOM reads DHT11 (temp/humidity), analog light sensor, and soil moisture sensor over Wi-Fi → HTTP POST to Flask server → RL model inference → relay module + DC motor actuation</li>
+        <li><strong style="color:var(--text)">Real-time Flask dashboard:</strong> live sensor charts, latest AI prediction display (WATER / DO NOTHING), manual override button, daily CSV logs — fully working UI in production</li>
+        <li>Anomaly detection for sudden environmental drops; separate motor power supply with capacitor smoothing to prevent ESP32 reboots from voltage spikes during pump activation</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">PPO (Stable-Baselines3)</span>
+        <span class="tech-tag">Gymnasium</span>
+        <span class="tech-tag">ESP32</span>
+        <span class="tech-tag">Flask</span>
+        <span class="tech-tag">DHT11 / Soil Moisture</span>
+        <span class="tech-tag">Relay + DC Motor</span>
+        <span class="tech-tag">IoT / Wi-Fi</span>
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Pandas / NumPy</span>
+      </div>
+    </div>
+
+    <!-- Project 7 -->
+    <div class="project-card fade-in">
+      <div class="project-number">07</div>
+      <div class="project-status status-progress">◌ Production-Grade Project</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="project-title">AI Incident Response Copilot</div>
+      <div class="project-subtitle">LangChain · GPT-4 · Claude · Kafka · LangSmith · LLMOps</div>
+      <p class="project-desc">
+        A production-grade AI agent for autonomous IT incident diagnosis — multi-step reasoning, real-time log analysis, and automated remediation recommendations. Achieved 72% top-1 and 91% top-3 root-cause accuracy across 150 real incident scenarios, cutting mean time to diagnosis by 66% (35min → 12min).
+      </p>
+      <ul class="project-highlights">
+        <li><strong style="color:var(--text)">LangChain orchestration pipeline:</strong> integrates OpenAI GPT-4 and Anthropic Claude for real-time log analysis, anomaly detection, evidence retrieval, hypothesis generation, and automated remediation — full traceability via LangSmith observability</li>
+        <li><strong style="color:var(--text)">Kafka streaming integration:</strong> real-time log ingestion and anomaly detection feeding directly into the agent's reasoning pipeline for live incident triage</li>
+        <li><strong style="color:var(--text)">Full LLMOps lifecycle:</strong> prompt engineering, retrieval optimization, CI/CD deployment with automated evaluation pipelines on every model/prompt change — tracking latency (&lt;6s), cost (&lt;$0.25), hallucination rate (&lt;5%), and usefulness (4.3/5)</li>
+        <li><strong style="color:var(--text)">LangSmith production monitoring:</strong> real-time agent performance tracking, cost optimization, regression detection, and automated quality assurance — continuous improvement without manual intervention</li>
+        <li>72% top-1 root-cause accuracy · 91% top-3 accuracy · 66% MTTD reduction · validated across 150 real incident scenarios</li>
+      </ul>
+      <div class="tech-stack">
+        <span class="tech-tag">LangChain</span>
+        <span class="tech-tag">GPT-4</span>
+        <span class="tech-tag">Claude (Anthropic)</span>
+        <span class="tech-tag">Kafka Streaming</span>
+        <span class="tech-tag">LangSmith</span>
+        <span class="tech-tag">RAG / Retrieval</span>
+        <span class="tech-tag">CI/CD Eval Pipelines</span>
+        <span class="tech-tag">LLMOps</span>
+        <span class="tech-tag">Python</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label fade-in">Skills</div>
+  <h2 class="section-title fade-in">TECH STACK</h2>
+  <p class="section-desc fade-in">From GPU kernels to production backends — the tools I build with.</p>
+
+  <div class="skills-grid">
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">AI / ML Frameworks</div>
+      <div class="skill-items">
+        <span class="skill-item">PyTorch</span>
+        <span class="skill-item">TensorFlow</span>
+        <span class="skill-item">HuggingFace Transformers</span>
+        <span class="skill-item">Diffusers</span>
+        <span class="skill-item">OpenCV</span>
+        <span class="skill-item">CUDA</span>
+        <span class="skill-item">ControlNet</span>
+        <span class="skill-item">LoRA Fine-Tuning</span>
+        <span class="skill-item">SDXL</span>
+        <span class="skill-item">Ollama</span>
+        <span class="skill-item">Gemini API</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">RAG / LLMOps</div>
+      <div class="skill-items">
+        <span class="skill-item">SentenceTransformers</span>
+        <span class="skill-item">ChromaDB</span>
+        <span class="skill-item">FAISS</span>
+        <span class="skill-item">TF-IDF</span>
+        <span class="skill-item">Hybrid RAG</span>
+        <span class="skill-item">Faster-Whisper</span>
+        <span class="skill-item">VAD Filtering</span>
+        <span class="skill-item">Streaming Inference</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Backend & Infrastructure</div>
+      <div class="skill-items">
+        <span class="skill-item">FastAPI</span>
+        <span class="skill-item">Flask</span>
+        <span class="skill-item">Streamlit</span>
+        <span class="skill-item">Docker</span>
+        <span class="skill-item">SQLite</span>
+        <span class="skill-item">SSE Streaming</span>
+        <span class="skill-item">bcrypt / Auth</span>
+        <span class="skill-item">Rate Limiting</span>
+        <span class="skill-item">ffmpeg</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Edge & Hardware</div>
+      <div class="skill-items">
+        <span class="skill-item">NVIDIA Jetson</span>
+        <span class="skill-item">Raspberry Pi</span>
+        <span class="skill-item">Arduino</span>
+        <span class="skill-item">Microcontrollers</span>
+        <span class="skill-item">Verilog</span>
+        <span class="skill-item">MATLAB</span>
+        <span class="skill-item">Embedded C/C++</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-items">
+        <span class="skill-item">Python</span>
+        <span class="skill-item">C / C++</span>
+        <span class="skill-item">MATLAB</span>
+        <span class="skill-item">Verilog</span>
+        <span class="skill-item">SQL</span>
+        <span class="skill-item">HTML / CSS / JS</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <div class="skill-group-title">Tools & DevOps</div>
+      <div class="skill-items">
+        <span class="skill-item">Git / GitHub</span>
+        <span class="skill-item">Docker</span>
+        <span class="skill-item">Linux (Ubuntu)</span>
+        <span class="skill-item">WSL</span>
+        <span class="skill-item">SearXNG</span>
+        <span class="skill-item">Nominatim</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-label fade-in">Research</div>
+  <h2 class="section-title fade-in">PUBLICATIONS</h2>
+  <p class="section-desc fade-in">Peer-reviewed work in AI, hardware security, and NLP.</p>
+
+  <div class="pub-list">
+    <div class="pub-item fade-in">
+      <div class="pub-year">24</div>
+      <div class="pub-content">
+        <div class="pub-venue">IEEE · 2024</div>
+        <div class="pub-title">Automated Meta-Learning Frameworks for Dynamic Neural Architecture</div>
+      </div>
+    </div>
+    <div class="pub-item fade-in">
+      <div class="pub-year">24</div>
+      <div class="pub-content">
+        <div class="pub-venue">IEEE · 2024</div>
+        <div class="pub-title">PUF-Secured Memory: Integrating Arbiter PUFs with Error Correction</div>
+      </div>
+    </div>
+    <div class="pub-item fade-in">
+      <div class="pub-year">24</div>
+      <div class="pub-content">
+        <div class="pub-venue">ASIANCON · 2024</div>
+        <div class="pub-title">Breaking Down Barriers: Text Segmentation using DeBERTa-V3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label fade-in">Education</div>
+  <h2 class="section-title fade-in">BACKGROUND</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card fade-in">
+      <div class="edu-degree">M.S. Artificial Intelligence</div>
+      <div class="edu-school">Wayne State University</div>
+      <div class="edu-detail">Hardware & Systems Track · Detroit, Michigan</div>
+      <div class="edu-detail" style="margin-top: 0.3rem;">Graduated Apr 2026</div>
+      <div class="edu-gpa">3.71</div>
+    </div>
+    <div class="edu-card fade-in">
+      <div class="edu-degree">B.Tech — Electronics & Communication</div>
+      <div class="edu-school">Amrita School of Engineering</div>
+      <div class="edu-detail">India</div>
+      <div class="edu-detail" style="margin-top: 0.3rem;">Graduated Jun 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label fade-in" style="justify-content: center;">Contact</div>
+    <h2 class="section-title fade-in">LET'S WORK TOGETHER</h2>
+    <p class="section-desc fade-in" style="margin: 1rem auto 0; text-align: center; max-width: 500px;">
+      Open to Applied AI / ML Engineering roles — particularly in computer vision, multimodal systems, and AI infrastructure.
+    </p>
+    <a href="mailto:gokul.gk.michi@gmail.com" class="contact-email fade-in">gokul.gk.michi@gmail.com</a>
+    <div class="contact-links fade-in">
+      <a href="tel:7344464002" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.5 19.79 19.79 0 0 1 1 4.82 2 2 0 0 1 2.97 2.62h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 10a16 16 0 0 0 6.91 6.91l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (734) 446-4002
+      </a>
+      <a href="https://github.com/gk-gokul" target="_blank" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/gkgokul14/" target="_blank" class="contact-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Gokula Kumaran Kiruthiga Gopal · Built for GitHub Pages</span>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger children in same parent
+  document.querySelectorAll('.projects-grid, .skills-grid, .pub-list, .edu-grid, .about-stats').forEach(container => {
+    container.querySelectorAll('.fade-in').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 80}ms`;
+    });
+  });
+</script>
+</body>
+</html>
