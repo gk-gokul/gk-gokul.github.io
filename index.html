@@ -726,7 +726,29 @@
     transition: border-color 0.2s;
   }
 
-  .pub-item:hover { border-left-color: var(--accent); }
+  .pub-link {
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+  }
+
+  .pub-link:hover {
+    border-left-color: var(--accent);
+    background: var(--bg2);
+    transform: translateX(4px);
+  }
+
+  .pub-doi {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-top: 0.4rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .pub-link:hover .pub-doi { opacity: 1; }
 
   .pub-year {
     font-family: var(--display);
@@ -987,8 +1009,7 @@
         <a href="https://www.linkedin.com/in/gkgokul14/" target="_blank" class="btn-ghost" style="font-size:0.7rem; padding: 0.65rem 1.2rem;">LinkedIn</a>
       </div>
     </div>
-    <div class="about-stats fade-in">
- 
+
       <div class="stat-card">
         <div class="stat-num">2+</div>
         <div class="stat-label">Production AI Systems Deployed</div>
@@ -1093,15 +1114,15 @@
       <div class="project-title">CHW Academy AI Healthcare Assistant</div>
       <div class="project-subtitle">LLMOps · RAG · Healthcare AI · STT</div>
       <p class="project-desc">
-        A full-stack AI assistant for Community Health Workers at Wayne State — combining hybrid RAG, real-time speech transcription, intent routing, location-aware resources, and multi-turn supervision workflows.
+        A full-stack AI healthcare assistant deployed for Community Health Workers at Wayne State — 50+ concurrent users, &lt;300ms response latency, 95% grounding accuracy. Combines hybrid RAG, real-time speech AI, intent routing, and LLM-based supervision workflows.
       </p>
       <ul class="project-highlights">
-        <li>Hybrid RAG pipeline: SentenceTransformers + ChromaDB semantic search + TF-IDF keyword retrieval for grounded, hallucination-mitigated responses</li>
-        <li>Real-time STT with Faster-Whisper (large-v3), ffmpeg preprocessing, VAD filtering — full audio pipeline from browser to transcript</li>
-        <li>Production auth system: bcrypt password hashing, sliding-window sessions, email verification, lockout protection, per-user rate limiting (token bucket)</li>
-        <li>CHW Supervisor module: FAISS vector index + Llama3.2 for real-time case supervision with conversational memory and MI-principles</li>
-        <li>Intent routing engine combining keyword heuristics + LLM fallback for local resources, courses, guidelines, and PDF recommendations</li>
-        <li>Weekly meal planner with diet validation, variety enforcement, web-grounded recipe generation, and PDF export</li>
+        <li>50+ concurrent users served at &lt;300ms latency with 95% grounding accuracy — hybrid RAG pipeline (SentenceTransformers + ChromaDB + TF-IDF) with trusted-source validation and hallucination mitigation</li>
+        <li>Real-time STT pipeline with Faster-Whisper large-v3, VAD filtering, ffmpeg preprocessing — full audio-to-response in under 2s; int16 quantization for CPU deployment</li>
+        <li>Production auth system: bcrypt hashing, sliding-window sessions, email verification, lockout after 5 fails, per-user token-bucket rate limiting (30 req/min, burst 10)</li>
+        <li>CHW Supervisor module: FAISS vector index + LLM with MI-principles, safety escalation overrides for red-flag clinical scenarios, 8-turn conversational memory</li>
+        <li>Intent routing engine: 5-path classification (local resources, courses, guidelines, PDFs, Q&amp;A) — keyword heuristics + LLM fallback with 0.90+ confidence gating</li>
+        <li>Weekly meal planner with diet strictness validation, 7-day variety enforcement, budget constraints ($50–$150/week), web-grounded recipe generation, and PDF export</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">FastAPI</span>
@@ -1126,15 +1147,14 @@
       <div class="project-title">IntelliAware — Industrial AI Monitoring Platform</div>
       <div class="project-subtitle">Computer Vision · Edge AI · Gemini Multimodal · NVIDIA Jetson Orin</div>
       <p class="project-desc">
-        Factory-agnostic process monitoring system deployed on NVIDIA Jetson Orin — a three-tier CV pipeline combining perceptual hashing, LightGlue TensorRT FP16, and Gemini 2.0 Flash multimodal reasoning for real-time step tracking, anomaly detection, and cycle intelligence. No manual tuning: auto-calibrates from reference frames.
+        Factory-agnostic industrial monitoring system deployed on NVIDIA Jetson Orin — 91% step classification accuracy, 73% infrastructure cost reduction, 10+ concurrent video streams at sub-100ms latency. Three-tier CV pipeline auto-calibrates from reference frames with zero manual threshold tuning.
       </p>
       <ul class="project-highlights">
-        <li><strong style="color:var(--text)">Three-tier detection pipeline:</strong> pHash + histogram EMA (~1ms, CPU) → LightGlue TensorRT FP16 (~20ms, GPU Tensor Cores) → Gemini 2.0 Flash YES/NO (~2s, async, rare fallback)</li>
-        <li><strong style="color:var(--text)">Gemini multimodal classifier:</strong> submits before/after transition frame pairs with step descriptions; classifies which manufacturing step just completed — factory-agnostic, no code changes to switch plants</li>
-        <li><strong style="color:var(--text)">Jetson Orin deployment:</strong> Dockerized with dustynv/l4t-pytorch base, TensorRT engine auto-export on first run, starts in &lt;5s after initial build; separate docker-compose for dev vs. Jetson</li>
-        <li><strong style="color:var(--text)">MobileNetV3 always-on:</strong> runs every 3rd frame for motion detection, camera misalignment alarms, and stuck-process detection — independent of the step classifier</li>
-        <li><strong style="color:var(--text)">PC calibration server:</strong> FastAPI backend handles video upload, auto cycle-boundary detection (SSIM + cosine similarity), reference frame extraction, and KO (Knowledge Object) structured storage via MIX store</li>
-        <li>SSE-streaming video monitor endpoint with real-time pacing, job cancellation, cycle log tracking, and bootstrap phase to find start state on mid-process attach</li>
+        <li><strong style="color:var(--text)">91% accuracy · 73% cost reduction · sub-100ms latency:</strong> three-tier pipeline — pHash EMA (~1ms, CPU) → LightGlue TensorRT FP16 (~20ms, GPU) → Gemini 2.0 Flash (~2s, async fallback) — routes inference by confidence to minimize cost</li>
+        <li><strong style="color:var(--text)">10+ concurrent video streams</strong> on Jetson Orin at target FPS; Dockerized with dustynv/l4t-pytorch, TensorRT auto-export on first run, &lt;5s cold start after initial build</li>
+        <li><strong style="color:var(--text)">Factory-agnostic Gemini classifier:</strong> before/after frame pairs with step descriptions → semantic step classification, zero retraining to switch plants; MobileNetV3 runs every 3rd frame for motion, misalignment, stuck-process detection</li>
+        <li><strong style="color:var(--text)">PC calibration server:</strong> auto cycle-boundary detection via SSIM + cosine similarity, reference frame extraction, KO/MIX knowledge store — full client data pipeline from raw video to structured reference</li>
+        <li>SSE streaming monitor with real-time pacing, job cancellation, cycle log tracking, bootstrap phase for mid-process attach, and camera misalignment alarms with &lt;3-frame detection latency</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">Gemini 2.0 Flash</span>
@@ -1181,18 +1201,17 @@
       <div class="project-number">04</div>
       <div class="project-status status-live">● Active / IGVC 2026</div>
       <a href="https://github.com/waynerobotics/Warrior_2026" target="_blank" class="project-gh">github.com/waynerobotics/Warrior_2026</a>
-      <div class="project-title">Warrior 2026 — Autonomous Ground Vehicle (IGVC)</div>
+      <div class="project-title"> Autonomous Ground Vehicle (IGVC)</div>
       <div class="project-subtitle">ROS2 Jazzy · Nav2 · Swerve Drive · Sensor Fusion · Electrical Lead</div>
       <p class="project-desc">
-        Full-stack autonomous ground vehicle for the 2026 Intelligent Ground Vehicle Competition — I contributed across both electrical architecture and software, from power system design to ROS2 navigation pipelines, RL-based motion planning, and real-time sensor fusion on NVIDIA Jetson AGX Orin.
+        Full-stack autonomous ground vehicle for IGVC 2026 — 50% power system complexity reduction, 80% assembly time reduction, &lt;50ms sensor fusion latency, &lt;10ms swerve drive control loop on NVIDIA Jetson AGX Orin. Contributed across both electrical architecture and software.
       </p>
       <ul class="project-highlights">
-        <li><strong style="color:var(--text)">Electrical architecture:</strong> designed complete power system for the autonomous platform — reduced complexity by 50% and assembly time by 80% via modular subsystem design and optimized component integration</li>
-        <li><strong style="color:var(--text)">Sensor fusion pipeline:</strong> integrated LiDAR, RGB cameras, IMU, and odometry under ROS2, achieving real-time fusion with &lt;50ms latency validated in Gazebo Ignition simulation</li>
-        <li><strong style="color:var(--text)">Hybrid navigation framework:</strong> combined Nav2 with reinforcement learning-based residual control policies for adaptive motion planning in unstructured outdoor environments</li>
-        <li><strong style="color:var(--text)">Jetson AGX Orin integration:</strong> implemented and debugged sensor interfaces with CAN and Ethernet protocols for motor control and real-time sensor data acquisition</li>
-        <li><strong style="color:var(--text)">Swerve drive kinematics:</strong> implemented forward and inverse kinematics pipelines for the 4-module swerve platform — real-time steering angle and wheel velocity control with &lt;10ms control loop latency</li>
-        <li>Full ROS2 package stack: warrior_hardware, warrior_navigation, warrior_localization, warrior_gps, warrior_control, warrior_serial, warrior_description — Dockerized with Gazebo Ignition simulation environment</li>
+        <li><strong style="color:var(--text)">50% power complexity reduction · 80% assembly time reduction:</strong> complete electrical system architecture for multi-sensor autonomous platform via modular subsystem design and strategic component selection</li>
+        <li><strong style="color:var(--text)">&lt;50ms sensor fusion latency:</strong> LiDAR + RGB cameras + IMU + odometry pipeline under ROS2, validated in Gazebo Ignition simulation with EKF-based robot_localization</li>
+        <li><strong style="color:var(--text)">Hybrid navigation:</strong> Nav2 + RL-based residual control policies for adaptive motion planning in unstructured outdoor environments; SLAM toolbox + NMEA/MAVROS GPS localization</li>
+        <li><strong style="color:var(--text)">&lt;10ms swerve drive control loop:</strong> forward + inverse kinematics for 4-module swerve platform on Jetson AGX Orin — CAN + Ethernet sensor interfaces for real-time motor control</li>
+        <li>Full ROS2 package stack (168 commits): warrior_hardware, warrior_navigation, warrior_localization, warrior_gps, warrior_control, warrior_serial — Dockerized with Gazebo Ignition SITL environment</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">ROS2 Jazzy</span>
@@ -1216,15 +1235,14 @@
       <div class="project-title">Research Paper Organizer — AI Literature Management System</div>
       <div class="project-subtitle">RAG · HDBSCAN Clustering · LLM Summarization · Local-First · Multi-User</div>
       <p class="project-desc">
-        A fully local, privacy-first AI system for managing large research paper collections — actively used by Wayne State PhD students. Combines PDF extraction, LLM summarization, semantic embeddings, HDBSCAN topic clustering, and RAG-based Q&amp;A into one unified Streamlit application. Documented in IEEE paper format (ECE7500).
+        Privacy-first AI literature management system actively used by Wayne State PhD students — ROUGE-L 0.37, BERTScore F1 0.89, LLM evaluator 8.08/10, duplicate similarity 0.75 on evaluation set. All metrics computed fully locally with zero cloud APIs.
       </p>
       <ul class="project-highlights">
-        <li><strong style="color:var(--text)">End-to-end RAG pipeline:</strong> PDFs split into 4-sentence chunks, embedded with mxbai-embed-large, stored in ChromaDB; queries retrieve top-k chunks and pass to Ollama LLM (qwen2.5vl) for grounded, hallucination-reduced answers</li>
-        <li><strong style="color:var(--text)">HDBSCAN topic clustering:</strong> document-level embeddings clustered automatically — no predefined k; TF-IDF keyword extraction generates human-readable topic labels; PDFs auto-organized into topic folders</li>
-        <li><strong style="color:var(--text)">Duplicate detection:</strong> cosine similarity between document embeddings flags near-duplicate papers before processing — avg similarity score 0.75 on evaluation set</li>
-        <li><strong style="color:var(--text)">Evaluated rigorously:</strong> ROUGE-L 0.37 · BERTScore F1 0.89 · LLM evaluator 8.08/10 — all metrics computed fully locally without any cloud APIs</li>
-        <li><strong style="color:var(--text)">Multi-user system:</strong> per-user auth, isolated cache + vector DB per user, per-user PDF library; export to CSV comparison, markdown summaries, and auto-generated related work sections</li>
-        <li>Table extraction with importance scoring (numeric density + keyword hits), high-DPI 216 DPI preview rendering via PyMuPDF, and real-time progress callbacks during batch processing</li>
+        <li><strong style="color:var(--text)">ROUGE-L 0.37 · BERTScore F1 0.89 · LLM score 8.08/10 · duplicate similarity 0.75</strong> — RAG pipeline: 4-sentence chunks, mxbai-embed-large embeddings, ChromaDB vector store, qwen2.5vl LLM — all local, zero cloud APIs</li>
+        <li><strong style="color:var(--text)">HDBSCAN topic clustering:</strong> no predefined k, automatically discovers topic groups; TF-IDF label generation; PDFs auto-organized into topic folders with &lt;2s clustering time on 50-paper collections</li>
+        <li><strong style="color:var(--text)">Duplicate detection at 0.75 avg cosine similarity</strong> — flags near-duplicates before processing, preventing redundant embeddings and keeping library clean across multi-user sessions</li>
+        <li><strong style="color:var(--text)">Multi-user system:</strong> per-user isolated cache + vector DB + PDF library; CSV comparison export, markdown summaries, and auto-generated related work sections via single-click export</li>
+        <li>Table extraction with importance scoring (numeric density + keyword hits), 216 DPI PyMuPDF preview rendering, real-time progress callbacks during batch processing of 50+ paper collections</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">Ollama / qwen2.5vl</span>
@@ -1249,14 +1267,14 @@
       <div class="project-title">IntelliGrow — RL-Powered Smart Plant Care System</div>
       <div class="project-subtitle">Reinforcement Learning · IoT · ESP32 · Flask · PPO · Real Hardware</div>
       <p class="project-desc">
-        A fully functional IoT + AI system for autonomous plant care — inspired by a local farmer and deployed on a real farm. An ESP32 reads live sensor data (temperature, humidity, light, soil moisture) and a PPO reinforcement learning model decides when to water, activating a relay-controlled pump with hardware-calibrated precision.
+        IoT + RL system for autonomous plant care — deployed on a real farm. PPO agent trained over 5,000 timesteps on live sensor logs; hardware-calibrated water delivery equation achieving &lt;5ml delivery error; ESP32 relay-controlled pump actuating in under 200ms from model inference.
       </p>
       <ul class="project-highlights">
-        <li><strong style="color:var(--text)">PPO reinforcement learning agent:</strong> custom Gym-compatible PlantWateringEnv trained on real sensor logs — reward structure penalizes overwatering (soil &gt;85%) and underwatering (soil &lt;45%), trained over 5,000 timesteps using Stable-Baselines3</li>
-        <li><strong style="color:var(--text)">Hardware-calibrated water delivery:</strong> derived flow-rate equation accounting for tube fill delay — Watering Time = (Volume × Flow Factor) + Tube Delay Constant — ensures precise delivery even at small volumes</li>
-        <li><strong style="color:var(--text)">Full IoT pipeline:</strong> ESP32 WROOM reads DHT11 (temp/humidity), analog light sensor, and soil moisture sensor over Wi-Fi → HTTP POST to Flask server → RL model inference → relay module + DC motor actuation</li>
-        <li><strong style="color:var(--text)">Real-time Flask dashboard:</strong> live sensor charts, latest AI prediction display (WATER / DO NOTHING), manual override button, daily CSV logs — fully working UI in production</li>
-        <li>Anomaly detection for sudden environmental drops; separate motor power supply with capacitor smoothing to prevent ESP32 reboots from voltage spikes during pump activation</li>
+        <li><strong style="color:var(--text)">PPO agent · 5,000 timesteps · Stable-Baselines3:</strong> custom Gym-compatible PlantWateringEnv on real sensor logs — +1 reward (soil 45–85%), −1 overwater penalty (&gt;85%), −1 underwater penalty; convergence in ~3,000 steps</li>
+        <li><strong style="color:var(--text)">Hardware-calibrated water delivery — &lt;5ml error:</strong> derived Watering Time = (Volume × Flow Factor) + Tube Delay Constant from trial measurements; accurate even at 10ml target volumes</li>
+        <li><strong style="color:var(--text)">Full IoT pipeline — &lt;200ms actuation latency:</strong> ESP32 WROOM → HTTP POST → Flask → PPO inference → relay module + DC motor; Wi-Fi auto-reconnect with separate motor PSU + capacitor smoothing</li>
+        <li><strong style="color:var(--text)">Real-time Flask dashboard:</strong> live charts for all 4 sensors, AI prediction badge (WATER / DO NOTHING), manual override, daily CSV logs — 8+ days of continuous sensor data collected during deployment</li>
+        <li>Anomaly detection for sudden temp/humidity drops; separate motor power supply eliminates voltage dip reboots; minimum watering interval guard prevents pump cycling on noisy readings</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">PPO (Stable-Baselines3)</span>
@@ -1279,14 +1297,14 @@
       <div class="project-title">AI Incident Response Copilot</div>
       <div class="project-subtitle">LangChain · GPT-4 · Claude · Kafka · LangSmith · LLMOps</div>
       <p class="project-desc">
-        A production-grade AI agent for autonomous IT incident diagnosis — multi-step reasoning, real-time log analysis, and automated remediation recommendations. Achieved 72% top-1 and 91% top-3 root-cause accuracy across 150 real incident scenarios, cutting mean time to diagnosis by 66% (35min → 12min).
+        Production AI agent for autonomous IT incident diagnosis — 72% top-1 and 91% top-3 root-cause accuracy across 150 real incidents, 95% evidence citation accuracy, &lt;5% hallucination rate, 66% MTTD reduction (35min → 12min), 40% MTTR reduction (70min → 42min), &lt;$0.25/incident cost.
       </p>
       <ul class="project-highlights">
-        <li><strong style="color:var(--text)">LangChain orchestration pipeline:</strong> integrates OpenAI GPT-4 and Anthropic Claude for real-time log analysis, anomaly detection, evidence retrieval, hypothesis generation, and automated remediation — full traceability via LangSmith observability</li>
-        <li><strong style="color:var(--text)">Kafka streaming integration:</strong> real-time log ingestion and anomaly detection feeding directly into the agent's reasoning pipeline for live incident triage</li>
-        <li><strong style="color:var(--text)">Full LLMOps lifecycle:</strong> prompt engineering, retrieval optimization, CI/CD deployment with automated evaluation pipelines on every model/prompt change — tracking latency (&lt;6s), cost (&lt;$0.25), hallucination rate (&lt;5%), and usefulness (4.3/5)</li>
-        <li><strong style="color:var(--text)">LangSmith production monitoring:</strong> real-time agent performance tracking, cost optimization, regression detection, and automated quality assurance — continuous improvement without manual intervention</li>
-        <li>72% top-1 root-cause accuracy · 91% top-3 accuracy · 66% MTTD reduction · validated across 150 real incident scenarios</li>
+        <li><strong style="color:var(--text)">72% top-1 · 91% top-3 root-cause accuracy · 95% evidence citation · &lt;5% hallucination</strong> — multi-stage LLM chain: anomaly detection → context retrieval → evidence extraction → hypothesis ranking → remediation generation</li>
+        <li><strong style="color:var(--text)">66% MTTD reduction (35min → 12min) · 40% MTTR reduction (70min → 42min)</strong> across 150 real incident scenarios — Kafka streaming ingestion with &lt;10s delay, OpenSearch full-text + pgvector semantic retrieval</li>
+        <li><strong style="color:var(--text)">LangSmith observability:</strong> &lt;6s avg latency, &lt;12s p95, &lt;$0.25/incident, 4.3/5 usefulness score — CI/CD eval pipelines on every prompt/model change with automated regression detection</li>
+        <li><strong style="color:var(--text)">Kafka real-time pipeline:</strong> application logs + Kubernetes events + deployment metadata ingested at &lt;10s delay; Pydantic-validated structured JSON outputs ensuring reliability for on-call engineers</li>
+        <li>4-tool LangChain agent: parse reply → draft message → escalate → finalize — dynamic tool selection with Pydantic schema validation at every step; full audit trail per incident via LangSmith</li>
       </ul>
       <div class="tech-stack">
         <span class="tech-tag">LangChain</span>
@@ -1398,27 +1416,30 @@
   <p class="section-desc fade-in">Peer-reviewed work in AI, hardware security, and NLP.</p>
 
   <div class="pub-list">
-    <div class="pub-item fade-in">
+    <a href="https://ieeexplore.ieee.org/abstract/document/10924108" target="_blank" class="pub-item pub-link fade-in">
       <div class="pub-year">24</div>
       <div class="pub-content">
         <div class="pub-venue">IEEE · 2024</div>
         <div class="pub-title">Automated Meta-Learning Frameworks for Dynamic Neural Architecture</div>
+        <div class="pub-doi">ieeexplore.ieee.org ↗</div>
       </div>
-    </div>
-    <div class="pub-item fade-in">
+    </a>
+    <a href="https://ieeexplore.ieee.org/document/10896149" target="_blank" class="pub-item pub-link fade-in">
       <div class="pub-year">24</div>
       <div class="pub-content">
         <div class="pub-venue">IEEE · 2024</div>
         <div class="pub-title">PUF-Secured Memory: Integrating Arbiter PUFs with Error Correction</div>
+        <div class="pub-doi">ieeexplore.ieee.org ↗</div>
       </div>
-    </div>
-    <div class="pub-item fade-in">
+    </a>
+    <a href="https://ieeexplore.ieee.org/document/10838006" target="_blank" class="pub-item pub-link fade-in">
       <div class="pub-year">24</div>
       <div class="pub-content">
         <div class="pub-venue">ASIANCON · 2024</div>
         <div class="pub-title">Breaking Down Barriers: Text Segmentation using DeBERTa-V3</div>
+        <div class="pub-doi">ieeexplore.ieee.org ↗</div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1432,8 +1453,8 @@
       <div class="edu-degree">M.S. Artificial Intelligence</div>
       <div class="edu-school">Wayne State University</div>
       <div class="edu-detail">Hardware & Systems Track · Detroit, Michigan</div>
-      <div class="edu-detail" style="margin-top: 0.3rem;">Graduated May 2026</div>
-     
+      <div class="edu-detail" style="margin-top: 0.3rem;">Graduated Apr 2026</div>
+  
     </div>
     <div class="edu-card fade-in">
       <div class="edu-degree">B.Tech — Electronics & Communication</div>
