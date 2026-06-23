@@ -24,9 +24,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
     color: var(--text);
@@ -36,7 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* ─── NOISE OVERLAY ─── */
   body::before {
     content: '';
     position: fixed;
@@ -47,7 +44,6 @@
     opacity: 0.4;
   }
 
-  /* ─── GRID BG ─── */
   body::after {
     content: '';
     position: fixed;
@@ -60,7 +56,6 @@
     z-index: 0;
   }
 
-  /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -99,7 +94,6 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* ─── HERO LAYOUT WITH PHOTO ─── */
   #hero {
     position: relative;
     min-height: 100vh;
@@ -267,7 +261,6 @@
     transform: translateY(-2px);
   }
 
-  /* ─── SCROLL INDICATOR ─── */
   .scroll-indicator {
     position: absolute;
     bottom: 2.5rem;
@@ -300,7 +293,6 @@
     50% { opacity: 1; transform: scaleY(1.2); }
   }
 
-  /* ─── SECTION BASE ─── */
   section {
     position: relative;
     z-index: 1;
@@ -344,7 +336,6 @@
     font-size: 1rem;
   }
 
-  /* ─── ABOUT ─── */
   #about {
     background: var(--bg2);
     border-top: 1px solid var(--border);
@@ -410,9 +401,7 @@
     text-transform: uppercase;
   }
 
-  /* ─── EXPERIENCE ─── */
   #experience { max-width: 1200px; margin: 0 auto; }
-
   .exp-container { max-width: 1200px; margin: 0 auto; }
 
   .exp-item {
@@ -486,7 +475,6 @@
     top: 0.2rem;
   }
 
-  /* ─── PROJECTS ─── */
   #projects { background: var(--bg2); border-top: 1px solid var(--border); }
 
   .projects-grid {
@@ -521,6 +509,89 @@
   }
 
   .project-card:hover::after { transform: scaleX(1); }
+
+  /* Special featured card for Project 09 */
+  .project-card.featured {
+    border-top: 2px solid var(--accent);
+    grid-column: 1 / -1;
+  }
+
+  .project-card.featured .project-number {
+    font-size: 8rem;
+  }
+
+  .featured-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .featured-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .metric-pill {
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(0,229,255,0.15);
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .metric-val {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .live-demo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.2rem;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: 1.2rem;
+    margin-right: 0.75rem;
+  }
+
+  .live-demo-btn:hover {
+    background: rgba(0,229,255,0.15);
+    transform: translateY(-2px);
+  }
+
+  .live-demo-btn .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
 
   .project-number {
     font-family: var(--display);
@@ -647,7 +718,6 @@
     color: var(--accent);
   }
 
-  /* ─── SKILLS ─── */
   #skills { max-width: 1200px; margin: 0 auto; }
 
   .skills-grid {
@@ -705,7 +775,6 @@
     color: var(--accent);
   }
 
-  /* ─── PUBLICATIONS ─── */
   #publications { background: var(--bg2); border-top: 1px solid var(--border); }
 
   .pub-list {
@@ -776,7 +845,6 @@
     line-height: 1.5;
   }
 
-  /* ─── EDUCATION ─── */
   #education { max-width: 1200px; margin: 0 auto; }
 
   .edu-grid {
@@ -824,15 +892,6 @@
     letter-spacing: 0.06em;
   }
 
-  .edu-gpa {
-    font-family: var(--display);
-    font-size: 2.5rem;
-    color: var(--accent3);
-    margin-top: 1rem;
-    line-height: 1;
-  }
-
-  /* ─── CONTACT ─── */
   #contact {
     background: var(--bg2);
     border-top: 1px solid var(--border);
@@ -878,7 +937,6 @@
     display: block;
   }
 
-  /* ─── FOOTER ─── */
   footer {
     text-align: center;
     padding: 2rem 4rem;
@@ -891,7 +949,6 @@
     z-index: 1;
   }
 
-  /* ─── ANIMATIONS ─── */
   .fade-in {
     opacity: 0;
     transform: translateY(24px);
@@ -903,7 +960,6 @@
     transform: none;
   }
 
-  /* ─── CURSOR BLINK ─── */
   .blink {
     animation: blink 1.2s step-end infinite;
   }
@@ -913,7 +969,6 @@
     50% { opacity: 0; }
   }
 
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
@@ -924,12 +979,13 @@
     .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
     .edu-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
+    .featured-inner { grid-template-columns: 1fr; }
+    .featured-metrics { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">GK.KIRUTHIGA_GOPAL<span class="blink">_</span></div>
   <ul class="nav-links">
@@ -942,7 +998,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,229,255,0.07) 0%,transparent 70%);top:-200px;right:-100px;pointer-events:none;"></div>
   <div style="position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.06) 0%,transparent 70%);bottom:-100px;left:200px;pointer-events:none;"></div>
@@ -985,7 +1040,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-text fade-in">
@@ -1010,7 +1064,6 @@
       </div>
     </div>
     <div class="about-stats fade-in">
-     
       <div class="stat-card">
         <div class="stat-num">2+</div>
         <div class="stat-label">Production AI Systems Deployed</div>
@@ -1027,7 +1080,6 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="exp-container">
     <div class="section-label fade-in">Experience</div>
@@ -1099,7 +1151,6 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-label fade-in">Projects</div>
   <h2 class="section-title fade-in">WHAT I'VE BUILT</h2>
@@ -1107,7 +1158,7 @@
 
   <div class="projects-grid">
 
-    <!-- Project 1 -->
+    <!-- Project 01 -->
     <div class="project-card fade-in">
       <div class="project-number">01</div>
       <div class="project-status status-live">● Live / Production</div>
@@ -1140,7 +1191,7 @@
       </div>
     </div>
 
-    <!-- Project 2 -->
+    <!-- Project 02 -->
     <div class="project-card fade-in">
       <div class="project-number">02</div>
       <div class="project-status status-live">● Live / Production</div>
@@ -1172,7 +1223,7 @@
       </div>
     </div>
 
-    <!-- Project 3 -->
+    <!-- Project 03 -->
     <div class="project-card fade-in">
       <div class="project-number">03</div>
       <div class="project-status status-progress">◌ In Progress</div>
@@ -1197,7 +1248,7 @@
       </div>
     </div>
 
-    <!-- Project 4 -->
+    <!-- Project 04 -->
     <div class="project-card fade-in">
       <div class="project-number">04</div>
       <div class="project-status status-live">● Active / IGVC 2026</div>
@@ -1228,7 +1279,7 @@
       </div>
     </div>
 
-    <!-- Project 5 -->
+    <!-- Project 05 -->
     <div class="project-card fade-in">
       <div class="project-number">05</div>
       <div class="project-status status-live">● Used by Wayne State PhD Students</div>
@@ -1260,7 +1311,7 @@
       </div>
     </div>
 
-    <!-- Project 6 -->
+    <!-- Project 06 -->
     <div class="project-card fade-in">
       <div class="project-number">06</div>
       <div class="project-status status-live">● Deployed on a Real Farm</div>
@@ -1290,7 +1341,7 @@
       </div>
     </div>
 
-    <!-- Project 7 -->
+    <!-- Project 07 -->
     <div class="project-card fade-in">
       <div class="project-number">07</div>
       <div class="project-status status-progress">◌ Production-Grade Project</div>
@@ -1320,6 +1371,7 @@
       </div>
     </div>
 
+    <!-- Project 08 -->
     <div class="project-card fade-in">
       <div class="project-number">08</div>
       <div class="project-status status-progress">◌ In Progress</div>
@@ -1348,10 +1400,92 @@
       </div>
     </div>
 
+    <!-- Project 09 — LLM Performance Intelligence Dashboard (FEATURED, FULL WIDTH) -->
+    <div class="project-card featured fade-in">
+      <div class="project-number">09</div>
+      <div class="project-status status-live">● Live Dashboard · Vercel</div>
+      <a href="https://github.com/gk-gokul" target="_blank" class="project-gh">github.com/gk-gokul</a>
+      <div class="featured-inner">
+        <div>
+          <div class="project-title">LLM Performance Intelligence Dashboard</div>
+          <div class="project-subtitle">LLMOps · Inference Benchmarking · Deployment Readiness · Ollama · Multi-Model</div>
+          <p class="project-desc">
+            An end-to-end benchmarking and deployment readiness platform for local LLMs. Automated Python pipeline stress-tests models (Gemma3, Llama3.2, Qwen3) across concurrent workload profiles — RAG, conversational AI, summarization, and code generation — then feeds 19 standardized metrics into an interactive dashboard for deployment decision-making.
+          </p>
+          <ul class="project-highlights">
+            <li><strong style="color:var(--text)">Automated multi-model benchmarking pipeline:</strong> concurrent inference via ThreadPoolExecutor across 5 batch sizes (1→8), streaming JSON parsing per token, TTFT capture on first response byte — all against a live Ollama server</li>
+            <li><strong style="color:var(--text)">19-metric evaluation schema per run:</strong> TTFT (ms), prompt throughput (t/s), generation speed, RPM, cached vs. uncached throughput, per-user gen speed — exported to Excel via OpenPyXL for reproducible evaluation profiles</li>
+            <li><strong style="color:var(--text)">Workload-aware deployment recommendations:</strong> dashboard classifies model readiness per workload (RAG, summarization, code gen, conversational AI) based on TTFT and throughput thresholds — not just raw benchmark numbers</li>
+            <li><strong style="color:var(--text)">Interactive visualization layer:</strong> multi-model comparison charts, latency heatmaps, throughput vs. concurrency curves, and per-workload deployment readiness scoring — all filterable by model and batch size</li>
+            <li>Designed for MLOps reproducibility: per-model Excel profile output (e.g. <code style="font-family:var(--mono);font-size:0.78em;color:var(--accent)">llama3.2_3b_profile.xlsx</code>) enables version-controlled benchmark history across model updates and hardware configs</li>
+          </ul>
+          <div>
+            <a href="https://cerebras-ai-model-model-quality-per.vercel.app/" target="_blank" class="live-demo-btn">
+              <span class="dot"></span> Live Dashboard
+            </a>
+            <a href="https://github.com/gk-gokul" target="_blank" class="live-demo-btn" style="border-color: rgba(0,229,255,0.4); color: var(--muted);">
+              View Source
+            </a>
+          </div>
+          <div class="tech-stack" style="margin-top: 1rem;">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Ollama</span>
+            <span class="tech-tag">ThreadPoolExecutor</span>
+            <span class="tech-tag">OpenPyXL</span>
+            <span class="tech-tag">Streaming Inference</span>
+            <span class="tech-tag">React / Vercel</span>
+            <span class="tech-tag">Gemma3:1b</span>
+            <span class="tech-tag">Llama3.2:3b</span>
+            <span class="tech-tag">Qwen3:8b</span>
+            <span class="tech-tag">LLMOps</span>
+          </div>
+        </div>
+        <div>
+          <div class="featured-metrics">
+            <div class="metric-pill">
+              <span class="metric-val">19</span>
+              <span class="metric-label">Metrics per Run</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-val">3</span>
+              <span class="metric-label">Models Benchmarked</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-val">5</span>
+              <span class="metric-label">Concurrency Levels</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-val">4</span>
+              <span class="metric-label">Workload Profiles</span>
+            </div>
+          </div>
+          <div style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,229,255,0.03); border: 1px solid rgba(0,229,255,0.1);">
+            <div style="font-family: var(--mono); font-size: 0.65rem; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.75rem; text-transform: uppercase;">Benchmarked Metrics</div>
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.3rem;">
+                <span>TTFT</span><span style="color: var(--accent3);">Time-to-First-Token (ms)</span>
+              </div>
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.3rem;">
+                <span>Gen Speed</span><span style="color: var(--accent3);">Tokens/sec per user</span>
+              </div>
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.3rem;">
+                <span>Throughput</span><span style="color: var(--accent3);">Total + cached/uncached</span>
+              </div>
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 0.3rem;">
+                <span>RPM</span><span style="color: var(--accent3);">Requests per minute</span>
+              </div>
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between;">
+                <span>Max Latency</span><span style="color: var(--accent3);">P100 tail latency (ms)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="section-label fade-in">Skills</div>
   <h2 class="section-title fade-in">TECH STACK</h2>
@@ -1385,6 +1519,7 @@
         <span class="skill-item">Faster-Whisper</span>
         <span class="skill-item">VAD Filtering</span>
         <span class="skill-item">Streaming Inference</span>
+        <span class="skill-item">LLM Benchmarking</span>
       </div>
     </div>
     <div class="skill-group fade-in">
@@ -1433,12 +1568,12 @@
         <span class="skill-item">WSL</span>
         <span class="skill-item">SearXNG</span>
         <span class="skill-item">Nominatim</span>
+        <span class="skill-item">OpenPyXL</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PUBLICATIONS -->
 <section id="publications">
   <div class="section-label fade-in">Research</div>
   <h2 class="section-title fade-in">PUBLICATIONS</h2>
@@ -1472,7 +1607,6 @@
   </div>
 </section>
 
-<!-- EDUCATION -->
 <section id="education">
   <div class="section-label fade-in">Education</div>
   <h2 class="section-title fade-in">BACKGROUND</h2>
@@ -1483,7 +1617,6 @@
       <div class="edu-school">Wayne State University</div>
       <div class="edu-detail">Hardware & Systems Track · Detroit, Michigan</div>
       <div class="edu-detail" style="margin-top: 0.3rem;">Graduated Apr 2026</div>
-
     </div>
     <div class="edu-card fade-in">
       <div class="edu-degree">B.Tech - Electronics & Communication</div>
@@ -1494,7 +1627,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="section-label fade-in" style="justify-content: center;">Contact</div>
@@ -1525,9 +1657,8 @@
 </footer>
 
 <script>
-  // Fade-in on scroll
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.classList.add('visible');
@@ -1539,7 +1670,6 @@
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Stagger children in same parent
   document.querySelectorAll('.projects-grid, .skills-grid, .pub-list, .edu-grid, .about-stats').forEach(container => {
     container.querySelectorAll('.fade-in').forEach((el, i) => {
       el.style.transitionDelay = `${i * 80}ms`;
