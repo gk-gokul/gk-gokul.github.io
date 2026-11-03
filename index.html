@@ -1054,7 +1054,7 @@
         My work spans <strong>multimodal AI, real-time computer vision, and LLMOps infrastructure</strong> - I've deployed production systems at Wayne State that handle manufacturing process monitoring and healthcare AI assistance at scale.
       </p>
       <p>
-        I care deeply about the full stack: from GPU-aware edge pipelines on <strong>NVIDIA Jetson</strong> to FastAPI backends with proper auth, rate limiting, and streaming inference - and now on-device LLM deployment on <strong>Qualcomm's automotive silicon</strong> at Panasonic Automotive. Engineering, not just modeling.
+        I care deeply about the full stack: from GPU-aware edge pipelines on <strong>NVIDIA Jetson</strong> to FastAPI backends with proper auth, rate limiting, and streaming inference - and now on-device multimodal voice AI on <strong>Qualcomm's automotive silicon</strong> at Panasonic Automotive, from the Android app down to multi-core NPU inference. Engineering, not just modeling.
       </p>
       <p>
         Currently open to <strong>full-time Applied AI / ML Engineering roles</strong> - particularly in computer vision, multimodal systems, and AI infrastructure.
@@ -1095,12 +1095,12 @@
       </div>
       <div>
         <div class="exp-role">Applied AI Engineer Intern</div>
-        <div class="exp-org">On-Device LLM · In-Vehicle Infotainment (IVI)</div>
+        <div class="exp-org">On-Device Multimodal Voice AI · In-Vehicle Infotainment (IVI)</div>
         <ul class="exp-bullets">
-          <li>Own the on-device LLM pipeline end-to-end for Panasonic's next-gen In-Vehicle Infotainment (IVI) system - quantizing, fine-tuning, and deploying foundation models natively on the Qualcomm SA8255 automotive chip.</li>
-          <li>Use Qualcomm's AIMET toolkit to quantize and fine-tune models (FP16/INT8) for the target use case, converting through ONNX and deploying via the QNN SDK, QAIRT, and GENIE for real-time generative inference on the NPU.</li>
-          <li>Built the Android front-end and integrated speech and peripheral pipelines to deliver a fully working end-to-end voice assistant - speech-to-text, on-device LLM response, and text-to-speech.</li>
-          <li>Optimized inference to 35 tokens/sec decode speed (248ms/token) with 1.5s end-to-end latency across the full speech-to-text → LLM → response pipeline, acting as the sole owner of the model bring-up and deployment effort.</li>
+          <li>Built an on-device multimodal voice assistant for Panasonic's next-gen In-Vehicle Infotainment (IVI) system across the whole stack: an Android/Kotlin app with C++ (JNI), a C++ LLM server running Qwen3-VL-4B on the Qualcomm NPU, streaming speech-to-text (sherpa-onnx, whisper.cpp), and sentence-by-sentence streaming text-to-speech (Piper) - 1.5s end-to-end voice latency.</li>
+          <li>Designed the conversation layer: MiniLM intent router and topic guard, 3-layer guardrails (safety filter, topic guard, output filter), output validation with retry, live camera questions, and proactive driver-assist agents (EV range, lane departure, road hazards).</li>
+          <li>Built automated profiling sweeps (SSH/ADB on a hypervisor setup) that benchmark 6 LLMs (Qwen3 0.6B-8B, Llama 3.2 3B) across Qualcomm automotive chip generations, capturing CPU, NPU, GPU and memory - the next-gen chip showed 1.31x faster decode and 33% lower time-to-first-token.</li>
+          <li>Scaled one conversation across 4 NPU cores (~60 tok/s, 2.4x a single core) and ran Gemma 4 through LiteRT-LM on the NPU (0.40s to first token, 20 tok/s, ~8% CPU); earlier quantized (AIMET FP16/INT8) and deployed models via ONNX, QNN SDK, QAIRT and GENIE at 35 tok/s.</li>
         </ul>
       </div>
     </div>
@@ -1118,6 +1118,7 @@
           <li>Designed a hybrid AI inference architecture combining MobileNetV3-based edge vision models with Gemini multimodal reasoning for semantic process-state detection and transition classification.</li>
           <li>Engineered GPU-aware edge AI pipelines optimized for NVIDIA Jetson deployment - streaming video inference, motion analysis, cycle-boundary detection, and real-time process monitoring APIs.</li>
           <li>Built production FastAPI backend infrastructure with asynchronous calibration orchestration, SSE streaming, telemetry integrations, cancellation workflows, and persistent monitoring state management.</li>
+          <li>Built a distributed setup where a PC server runs calibration and NVIDIA Jetson devices run live monitoring, with a Streamlit operator UI to record, review, edit and launch; containerized with Docker.</li>
         </ul>
       </div>
     </div>
@@ -1562,6 +1563,8 @@
         <span class="skill-item">QAIRT</span>
         <span class="skill-item">AIMET Quantization</span>
         <span class="skill-item">GENIE</span>
+        <span class="skill-item">LiteRT-LM</span>
+        <span class="skill-item">Multi-core NPU Inference</span>
         <span class="skill-item">NVIDIA Jetson</span>
         <span class="skill-item">Raspberry Pi</span>
         <span class="skill-item">Arduino</span>
@@ -1579,6 +1582,7 @@
         <span class="skill-item">MATLAB</span>
         <span class="skill-item">Verilog</span>
         <span class="skill-item">SQL</span>
+        <span class="skill-item">Kotlin</span>
         <span class="skill-item">HTML / CSS / JS</span>
       </div>
     </div>
@@ -1592,6 +1596,8 @@
         <span class="skill-item">SearXNG</span>
         <span class="skill-item">Nominatim</span>
         <span class="skill-item">OpenPyXL</span>
+        <span class="skill-item">Ray (Anyscale accredited)</span>
+        <span class="skill-item">Android / ADB</span>
       </div>
     </div>
   </div>
@@ -1646,6 +1652,12 @@
       <div class="edu-school">Amrita School of Engineering</div>
       <div class="edu-detail">India</div>
       <div class="edu-detail" style="margin-top: 0.3rem;">Graduated Jun 2024</div>
+    </div>
+    <div class="edu-card fade-in">
+      <div class="edu-degree">Ray Practitioner &amp; Ray Foundations</div>
+      <div class="edu-school">Anyscale Accreditation</div>
+      <div class="edu-detail">Distributed compute with Ray</div>
+      <div class="edu-detail" style="margin-top: 0.3rem;">Issued Sep 2026</div>
     </div>
   </div>
 </section>
